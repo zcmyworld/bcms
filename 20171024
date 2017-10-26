@@ -1,0 +1,71 @@
+# 事务
+
+事务就是一组原子性的SQL查询
+
+一个运行良好的事务处理系统必须包含4个标准(ACID)特征：
+
+* 原子性
+* 一致性
+* 隔离性
+* 持久性
+
+### 事务问题
+
+* 脏读
+* 不可重复读
+* 幻读
+* 加锁读
+
+### 隔离级别
+
+* READ UNCOMMITTED 未提交读
+
+事务不提交，其他事物也可见
+
+* READ COMMITTED 提交读
+
+
+* REPEATABLE READ 可重复读
+
+
+* SERIALIZABLE 可串行化
+
+## 实验设计
+
+脏读，物品预定的例子
+
+1. 查询当前隔离级别
+
+	select @@global.tx_isolation,@@tx_isolation;
+
+
+3. mysql设置需要手动commit
+
+show variables like '%autocommit%';
+
+set autocommit = 0;
+
+3. 设置mysql隔离级别 
+
+set session transaction isolation level read uncommitted;
+set global transaction isolation level read uncommitted;
+
+set session transaction isolation level read committed;
+set global transaction isolation level read committed;
+
+
+set session transaction isolation level repeatable read;
+set global transaction isolation level repeatable read;
+
+set session transaction isolation level serializable;
+set global transaction isolation level serializable;
+
+
+|-------------------------------------
+
+脏读实验
+
+事务中未提交的修改，也被其他会话访问成功
+
+不可重复读
+
