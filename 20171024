@@ -69,3 +69,4 @@ set global transaction isolation level serializable;
 
 不可重复读
 
+不同事务中同时update一条数据会造成死锁
